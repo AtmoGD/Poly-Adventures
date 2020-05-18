@@ -16,7 +16,7 @@ public class FollowPlayerController : MonoBehaviour
         transform.position = target.position + offset;
         transform.LookAt(target);
     }
-    public void RotateAroundTargetHorizontal(Vector2 deltaPosition)
+    public void RotateAroundPlayer(Vector2 deltaPosition)
     {
         if (Mathf.Abs(deltaPosition.x) > Mathf.Abs(deltaPosition.y))
         {
@@ -24,8 +24,8 @@ public class FollowPlayerController : MonoBehaviour
             offset = camTurnAngle * offset;
         }else
         {
-            Quaternion camTurnAngle = Quaternion.AngleAxis(deltaPosition.y < 0 ? -rotationSpeed : rotationSpeed, Vector3.right);
-            offset = camTurnAngle * offset;
+            offset.y += deltaPosition.y * Time.deltaTime * 0.1f;
+            offset.y = offset.y < 2 ? 2 : offset.y > 12 ? 12 : offset.y;
         }
 
     }

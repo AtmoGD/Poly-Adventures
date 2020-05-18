@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody), typeof(Animator))]
 public class MovementController : MonoBehaviour
@@ -13,14 +14,18 @@ public class MovementController : MonoBehaviour
 
     private Rigidbody rb;
     private Animator anim;
+    private GameObject cam;
     private bool isMoving = false;
+    public Text text;
+
 
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
         anim = gameObject.GetComponent<Animator>();
+        cam = GameObject.Find("Main Camera");
     }
-    private void Update()
+    void Update()
     {
         if (!isMoving)
             actualSpeed = actualSpeed < damping ? 0 : actualSpeed - damping;
@@ -38,20 +43,24 @@ public class MovementController : MonoBehaviour
         if (rb)
         {
             float angle = -(float)Math.Atan2(direction.y, direction.x);
-            rb.rotation = Quaternion.Euler(0, (Mathf.Rad2Deg * angle) + 90, 0);
+            angle *= Mathf.Rad2Deg;
+            angle += cam.transform.eulerAngles.y;
+            rb.rotation = Quaternion.Euler(0, angle + 90, 0);
+            rb.rotation.SetLookRotation(direction, cam.transform.up);
         }
     }
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         if (!rb)
         {
+            
             Debug.LogError("Couldn't find a rigidbody");
             return;
         }
 
         if (actualSpeed > 0)
         {
-            rb.MovePosition(rb.position + (transform.forward * Time.deltaTime * actualSpeed));
+            rb.MovePosition(rb.position + (transform.forward * Time.fixedDeltaTime * actualSpeed));
             anim.SetFloat("Speed", (actualSpeed / speed));
         } else
         {
