@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class InputController : MonoBehaviour
 {
+    public GameObject player;
+    public FixedJoystick movementJoystic;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +16,9 @@ public class InputController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (movementJoystic.Direction.magnitude > 0)
+        {
+            player.SendMessage("Move", movementJoystic.Direction);
+        }
     }
 }
