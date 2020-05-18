@@ -610,8 +610,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1864505222}
   offset: {x: 0, y: 8, z: -5}
-  smoothFactor: 0.5
-  lookAtTarget: 1
+  smoothFactor: 0.2
+  lookAtTarget: 0
   rotateAroundPlayer: 1
   rotationSpeed: 5
 --- !u!1 &1595235912

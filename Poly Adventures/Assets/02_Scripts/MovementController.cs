@@ -13,16 +13,24 @@ public class MovementController : MonoBehaviour
 
     private Rigidbody rb;
     private Animator anim;
+    private bool isMoving = false;
 
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
         anim = gameObject.GetComponent<Animator>();
     }
-
+    private void Update()
+    {
+        if (!isMoving)
+            actualSpeed = actualSpeed < damping ? 0 : actualSpeed - damping;
+        else
+            isMoving = false;
+    }
     public void Move(Vector2 movement)
     {
         actualSpeed = speed * movement.magnitude;
+        isMoving = true;
         Rotate(movement);
     }
     public void Rotate(Vector2 direction)
@@ -43,8 +51,7 @@ public class MovementController : MonoBehaviour
 
         if (actualSpeed > 0)
         {
-            rb.MovePosition(rb.position + (transform.forward * Time.deltaTime * speed));
-            actualSpeed -= damping;
+            rb.MovePosition(rb.position + (transform.forward * Time.deltaTime * actualSpeed));
             anim.SetFloat("Speed", (actualSpeed / speed));
         } else
         {
