@@ -24,8 +24,8 @@ public class FollowPlayerController : MonoBehaviour
             offset = camTurnAngle * offset;
         }else
         {
-            offset.y += deltaPosition.y * Time.deltaTime * 0.1f;
-            offset.y = offset.y < 2 ? 2 : offset.y > 12 ? 12 : offset.y;
+            offset.y += deltaPosition.y * Time.deltaTime * 0.5f;
+            offset.y = offset.y < 0.5f ? 0.5f : offset.y > 12 ? 12 : offset.y;
         }
 
     }
