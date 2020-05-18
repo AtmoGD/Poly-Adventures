@@ -120,7 +120,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 75b7ea9eefe4b1c49bd888d46f2a7673, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 60252893a69e95046ba465ca5242c9e8, type: 2}
 --- !u!1 &485323492
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,7 +743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ff7227ef424dca4a858f2bdb406ac0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 8
   damping: 1
 --- !u!4 &1864505222 stripped
 Transform:
