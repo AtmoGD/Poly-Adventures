@@ -13,7 +13,7 @@ public class FollowPlayerController : MonoBehaviour
     public float rotationSpeed = 5.0f;
     void Start()
     {
-        offset = transform.position - target.position;
+        //offset = transform.position - target.position;
     }
     public void RotateAroundTarget()
     {

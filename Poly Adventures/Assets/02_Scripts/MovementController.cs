@@ -3,23 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody), typeof(Animator))]
 public class MovementController : MonoBehaviour
 {
     public float speed = 5.0f;
     private float actualSpeed = 0.0f;
     [Range(0.1f, 1.0f)]
     public float damping = 1.0f;
+
     private Rigidbody rb;
+    private Animator anim;
 
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
+        anim = gameObject.GetComponent<Animator>();
     }
 
     public void Move(Vector2 movement)
     {
-        actualSpeed = speed;
+        actualSpeed = speed * movement.magnitude;
         Rotate(movement);
     }
     public void Rotate(Vector2 direction)
@@ -42,6 +45,10 @@ public class MovementController : MonoBehaviour
         {
             rb.MovePosition(rb.position + (transform.forward * Time.deltaTime * speed));
             actualSpeed -= damping;
+            anim.SetFloat("Speed", (actualSpeed / speed));
+        } else
+        {
+            anim.SetFloat("Speed", 0);
         }
     }
 }
